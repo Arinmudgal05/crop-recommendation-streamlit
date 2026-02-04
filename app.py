@@ -1,18 +1,15 @@
 import streamlit as st
-import pickle
 import numpy as np
+import joblib  
+import sklearn
 
 # -------------------------------
 # Load model files
 # -------------------------------
-with open("model/model.pkl", "rb") as f:
-    model = pickle.load(f)
 
-with open("model/scaler.pkl", "rb") as f:
-    scaler = pickle.load(f)
-
-with open("model/label_encoder.pkl", "rb") as f:
-    label_encoder = pickle.load(f)
+model = joblib.load("model/model.pkl")
+scaler = joblib.load("model/scaler.pkl")
+label_encoder = joblib.load("model/label_encoder.pkl")
 
 # -------------------------------
 # Streamlit UI
@@ -47,3 +44,4 @@ if st.button("🌧️ Predict Crop"):
     crop = label_encoder.inverse_transform(prediction)
 
     st.success(f"✅ Recommended Crop: **{crop[0]}** 🌱")
+
